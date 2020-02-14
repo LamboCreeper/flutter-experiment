@@ -1,42 +1,71 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+import './widgets/pages/notificationspage.dart';
+
+
+int _selectedIndex = 0;
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   Widget build(BuildContext context) => (
-    CupertinoApp(
+    MaterialApp(
       home: HomeScreen()
     )
   );
 }
 
-class HomeScreen extends StatelessWidget {
+const pages = ["Feed", "Notifications", "Profile"];
+
+class HomeScreen extends StatefulWidget {
+  @override
+  createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  int _selectedIndex = 0;
+
+  @override
   Widget build(BuildContext context) => (
-    CupertinoTabScaffold(
-      tabBar: CupertinoTabBar(items: [
-        BottomNavigationBarItem(
-          icon: Icon(CupertinoIcons.news),
-          title: Text("Feed")
-        ),
-        BottomNavigationBarItem(
-            icon: Icon(CupertinoIcons.bell),
-            title: Text("Notifications")
-        ),
-        BottomNavigationBarItem(
-            icon: Icon(CupertinoIcons.person),
-            title: Text("Profile")
-        )
-      ]),
-      tabBuilder: (BuildContext context, int i) => (
-        CupertinoPageScaffold(
-          navigationBar: CupertinoNavigationBar(
-            middle: Text(i == 0 ? "Feed" : i == 1 ? "Notifications" : "Profile")
+    Scaffold(
+      appBar: AppBar(
+        title: Text(pages[_selectedIndex])
+      ),
+      body: Center(
+        child: renderPage(_selectedIndex)
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            title: Text("Feed")
           ),
-          child: Center(
-            child: Text("Hello World")
+          BottomNavigationBarItem(
+              icon: Icon(Icons.notifications),
+              title: Text("Notifications")
+          ),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.person),
+              title: Text("Profile")
           )
-        )
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.blueAccent,
+        onTap: (int index) {
+          setState(() {
+            _selectedIndex = index;
+          });
+        }
       )
     )
   );
+}
+
+Widget renderPage(int pageIndex) {
+  switch(pageIndex) {
+    case 1:
+      return NotificationsPage();
+    default:
+      return Text("Not Implimented");
+  }
 }
