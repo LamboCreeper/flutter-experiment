@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 
 import './widgets/pages/notificationspage.dart';
-
-
-int _selectedIndex = 0;
+import './widgets/pages/profile_page.dart';
 
 void main() => runApp(MyApp());
 
@@ -65,6 +63,8 @@ Widget renderPage(int pageIndex) {
   switch(pageIndex) {
     case 1:
       return NotificationsPage();
+    case 2:
+      return ProfilePage();
     default:
       return Text("Not Implimented");
   }

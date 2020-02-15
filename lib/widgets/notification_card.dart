@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart'
-;
+import 'package:flutter/material.dart';
+
 class NotificationCard extends StatelessWidget {
   final IconData icon;
   final String message;
